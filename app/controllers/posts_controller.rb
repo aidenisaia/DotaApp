@@ -22,4 +22,23 @@ class PostsController < ApplicationController
     post = Post.find_by(id: params[:id], user_id: current_user.id)
     render json: post.as_json
   end
+
+  def update
+    post = Post.find_by(id: params[:id], user_id: current_user.id)
+    
+    post.title = params[:title] || post.title
+    post.body = params[:body] || post.body
+
+    if post.save
+      render json: post
+    end
+  end
+
+  def destroy
+    post = Post.find_by(id: params[:id], user_id: current_user.id)
+
+    if post.delete
+      render json: {message: "#{post.title} was deleted"}
+    end
+  end
 end
