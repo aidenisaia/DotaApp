@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user, only: [:create, :update, :destroy]
 
   def index
     render json: Comment.all
@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
     comment = Comment.find_by(id: params[:id], user_id: current_user.id)
 
     if comment.delete
-      render json: {message: "#{comment.title} was deleted"}
+      render json: {message: "comment was deleted"}
     end
   end
 
