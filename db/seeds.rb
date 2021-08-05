@@ -10,22 +10,22 @@ require 'faker'
 User.create!(
   username: 'pudge',
   email: 'pudge@gmail.com',
-  password_digest: 'password'
+  password: 'password'
 )
 User.create!(
   username: 'axe',
   email: 'axe@gmail.com',
-  password_digest: 'password'
+  password: 'password'
 )
 User.create!(
   username: 'kunkka',
   email: 'kunkka@gmail.com',
-  password_digest: 'password'
+  password: 'password'
 )
 User.create!(
   username: 'tidehunter',
   email: 'tidehunter@gmail.com',
-  password_digest: 'password'
+  password: 'password'
 )
 
 users = User.all
