@@ -5,6 +5,7 @@ ruby '3.0.1'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
+gem "http"
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
