@@ -2,11 +2,16 @@ class BuildsController < ApplicationController
   before_action :authenticate_user, only: [:create, :update, :destroy]
 
   def index
-    render json: Build.all
+    render json: { 
+      builds: Build.all,
+      heroes: HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=#{Rails.application.credentials.api_key}").parse(:json)["result"]["heroes"],
+      items: HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetGameItems/V001/?key=#{Rails.application.credentials.api_key}&language=LANGCODE").parse(:json)["result"]["items"]
+
+    }
   end
 
   def create
-    response = HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=6F50BFED48FF88F023D59F09DCC715C3").parse(:json)
+    response = HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=#{Rails.application.credentials.api_key}").parse(:json)
 
     build = Build.new(
       user_id: current_user.id,
