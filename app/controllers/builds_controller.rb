@@ -33,6 +33,13 @@ class BuildsController < ApplicationController
       timing: params[:timing]
     )
     if build.save
+      params[:itemchoices].each do |itemchoice|
+        item = Item.new(
+          item_name: itemchoice[:name],
+          build_id: build.id
+        )
+        item.save
+      end
       render json: {message: "build created"}, status: :created
     else
       render json: { errors: build.errors.full_messages }, status: :bad_request
