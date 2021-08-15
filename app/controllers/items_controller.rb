@@ -14,14 +14,14 @@ class ItemsController < ApplicationController
 
     response2 = HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetGameItems/V001/?key=#{Rails.application.credentials.api_key}&language=LANGCODE").parse(:json)["result"]["items"]
 
-    items = []
+    response_items = []
     response2.each do |item|
       if item["recipe"] == 0
-        items << item
+        response_items << item
       end
     end
 
-    items.each do |item|
+    response_items.each do |item|
       item["name"] = item["name"].sub('item_', '')
       item["url"] = "http://cdn.dota2.com/apps/dota2/images/items/#{item['name']}_lg.png"
     end
@@ -30,7 +30,8 @@ class ItemsController < ApplicationController
     render json: { 
       builds: Build.all,
       heroes: heroes,
-      items: items
+      items: Item.all,
+      response_items: response_items
     }
   end
 
