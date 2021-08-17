@@ -30,13 +30,15 @@ class BuildsController < ApplicationController
     build = Build.new(
       user_id: current_user.id,
       hero_name: response["result"]["heroes"].filter{|hero| hero["name"] == "npc_dota_hero_#{params[:hero_name]}"}.first["name"],
-      timing: params[:timing]
+      timing: params[:timing],
+      hero_url: params[:hero_url]
     )
     if build.save
       params[:itemchoices].each do |itemchoice|
         item = Item.new(
           item_name: itemchoice[:name],
-          build_id: build.id
+          build_id: build.id,
+          url: itemchoice[:url]
         )
         item.save
       end

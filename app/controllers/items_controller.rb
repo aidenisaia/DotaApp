@@ -25,7 +25,6 @@ class ItemsController < ApplicationController
       item["name"] = item["name"].sub('item_', '')
       item["url"] = "http://cdn.dota2.com/apps/dota2/images/items/#{item['name']}_lg.png"
     end
-
     
     render json: { 
       builds: Build.all,
