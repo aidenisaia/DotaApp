@@ -40,6 +40,18 @@ class BuildsController < ApplicationController
     render json: Build.find_by(id: params[:id])
   end
 
+  # def update
+  #   build = Build.find_by(id: params[:id], user_id: current_user.id)
+    
+  #   build.title = params[:title] || build.title
+  #   build.body = params[:body] || build.body
+  #   build.build_id = params[:build_id] || build.build_id
+
+  #   if build.save
+  #     render json: build
+  #   end
+  # end
+
   def create
     response = HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=#{Rails.application.credentials.api_key}").parse(:json)
 

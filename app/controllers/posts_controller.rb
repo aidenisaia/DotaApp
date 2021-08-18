@@ -31,7 +31,9 @@ class PostsController < ApplicationController
   def update
     post = Post.find_by(id: params[:id], user_id: current_user.id)
     
+    post.title = params[:title] || post.title
     post.body = params[:body] || post.body
+    post.build_id = params[:build_id] || post.build_id
 
     if post.save
       render json: post
