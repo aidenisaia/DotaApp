@@ -2,14 +2,19 @@ class PostsController < ApplicationController
   before_action :authenticate_user, only: [:create, :update, :destroy]
 
   def index
-    render json: Post.all
+    render json: {
+      posts: Post.all,
+      builds: Build.all,
+      items: Item.all
+    }
   end
   
   def create
     post = Post.new(
       user_id: current_user.id,
       title: params[:title],
-      body: params[:body]
+      body: params[:body],
+      build_id: params[:build_id]
     )
     if post.save
       render json: { message: "Post was created" }, status: :created

@@ -36,6 +36,10 @@ class BuildsController < ApplicationController
     }
   end
 
+  def show
+    render json: Build.find_by(id: params[:id])
+  end
+
   def create
     response = HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=#{Rails.application.credentials.api_key}").parse(:json)
 
@@ -57,6 +61,17 @@ class BuildsController < ApplicationController
       render json: {message: "build created"}, status: :created
     else
       render json: { errors: build.errors.full_messages }, status: :bad_request
+    end
+  end
+
+  def destroy
+    build = Build.find_by(id: params[:id], user_id: current_user.id)
+
+    if build.delete
+      build.items.each do |item|
+        item.delete
+      end
+      render json: {message: "Build and items were deleted"}
     end
   end
 

@@ -34,29 +34,6 @@ users.each do |user|
   user_ids << user.id
 end
 
-5.times do
-  Post.create!(
-  user_id: user_ids.sample,
-  title: Faker::Lorem.sentence(word_count: 3, supplemental: true),
-  body: Faker::Lorem.paragraph(sentence_count: 3, supplemental: true)
-  )
-end
-
-posts = Post.all
-post_ids = []
-posts.each do |post|
-  post_ids << post.id
-end
-
-8.times do
-  user = users.sample
-  Comment.create!(
-    user_id: user.id,
-    post_id: post_ids.sample,
-    body: Faker::Games::Dota.quote(hero: "#{user.username}")
-  )
-end
-
 timings = ["Starting", "Early", "Mid", "Late"]
 
 response = HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=#{Rails.application.credentials.api_key}").parse(:json)["result"]["heroes"]
@@ -106,4 +83,34 @@ builds.each do |build|
       url: item["url"]
     )
   end
+end
+
+builds = Build.all
+build_ids = []
+builds.each do |build|
+  build_ids << build.id
+end
+
+5.times do
+  Post.create!(
+  user_id: user_ids.sample,
+  title: Faker::Lorem.sentence(word_count: 3, supplemental: true),
+  body: Faker::Lorem.paragraph(sentence_count: 3, supplemental: true),
+  build_id: build_ids.sample
+  )
+end
+
+posts = Post.all
+post_ids = []
+posts.each do |post|
+  post_ids << post.id
+end
+
+8.times do
+  user = users.sample
+  Comment.create!(
+    user_id: user.id,
+    post_id: post_ids.sample,
+    body: Faker::Games::Dota.quote(hero: "#{user.username}")
+  )
 end
