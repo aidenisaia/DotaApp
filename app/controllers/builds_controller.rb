@@ -55,9 +55,11 @@ class BuildsController < ApplicationController
   def create
     response = HTTP.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=#{Rails.application.credentials.api_key}").parse(:json)
 
+    # if params[:hero_name]
+
     build = Build.new(
       user_id: current_user.id,
-      hero_name: response["result"]["heroes"].filter{|hero| hero["name"] == "npc_dota_hero_#{params[:hero_name]}"}.first["name"],
+      hero_name: params[:hero_name],
       timing: params[:timing],
       hero_url: params[:hero_url]
     )
