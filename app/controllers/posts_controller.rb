@@ -5,8 +5,9 @@ class PostsController < ApplicationController
     render json: {
       posts: Post.all,
       builds: Build.all,
-      items: Item.all
+      items: Item.all,
     }
+    # "index.json.jb"
   end
   
   def create
