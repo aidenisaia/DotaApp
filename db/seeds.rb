@@ -48,7 +48,7 @@ heroes.each do |hero|
   hero["url"] = "http://cdn.dota2.com/apps/dota2/images/heroes/#{hero['name']}_sb.png"
 end
 
-4.times do
+5.times do
   hero = heroes.sample
   Build.create!(
     user_id: user_ids.sample,
@@ -75,7 +75,7 @@ response_items.each do |item|
 end
 
 builds.each do |build|
-  5.times do
+  4.times do
     item = response_items.sample
     Item.create!(
       item_name: item["name"],
@@ -95,7 +95,7 @@ end
   Post.create!(
   user_id: user_ids.sample,
   title: Faker::Lorem.sentence(word_count: 3, supplemental: true),
-  body: Faker::Lorem.paragraph(sentence_count: 3, supplemental: true),
+  body: Faker::Lorem.paragraph(sentence_count: 5, supplemental: true),
   build_id: build_ids.sample
   )
 end
